@@ -1,14 +1,25 @@
-<form [formGroup]="listModFormGroup">
+<form [formGroup]="listModFormGroup"  *ngIf="type_list === 'list'">
   <ion-item>
     <ion-input type="text" placeholder="Nombre" formControlName="name"></ion-input>
     <span *ngIf="listFormGroup.get('name').touched && listFormGroup.get('name').hasError('required')">Required</span>
   </ion-item>
-  <ion-item>
-    <ion-select multiple="true"  formControlName="proceso">
-      <ion-select-option value="0">En proceso</ion-select-option>
-      <ion-select-option value="1">Finalizado</ion-select-option>
-    </ion-select>
-  </ion-item>
 
   <ion-button type="button" (click)="modList()" [disabled]="listModFormGroup.invalid">Modificar</ion-button>
 </form>
+
+<form [formGroup]="listItemModFormGroup" *ngIf="type_list === 'item'">
+    <ion-item>
+      <ion-input type="text" placeholder="Nombre" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" placeholder="Descripcion" formControlName="description"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="number" placeholder="Precio" formControlName="price"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-button  (click)="takePhoto()" >Tomar foto</ion-button>
+    </ion-item>
+
+    <ion-button type="button" (click)="dataModItem()" >Guardar</ion-button>
+  </form>

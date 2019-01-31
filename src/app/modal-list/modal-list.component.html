@@ -1,4 +1,4 @@
-  <form [formGroup]="listFormGroup">
+  <form [formGroup]="listFormGroup" *ngIf="type_list === 'list'">
     <ion-item>
       <ion-input type="text" placeholder="Nombre" formControlName="name"></ion-input>
       <span *ngIf="listFormGroup.get('name').touched && listFormGroup.get('name').hasError('required')">Required</span>
@@ -6,4 +6,24 @@
 
     <ion-button type="button" (click)="crearList()" [disabled]="listFormGroup.invalid">Guardar</ion-button>
   </form>
+
+  <form [formGroup]="listItemFormGroup" *ngIf="type_list === 'item'">
+      <ion-item>
+        <ion-input type="text" placeholder="Nombre" formControlName="name"></ion-input>
+        <span *ngIf="listItemFormGroup.get('name').touched && listItemFormGroup.get('name').hasError('required')">Required</span>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" placeholder="Descripcion" formControlName="description"></ion-input>
+        <span *ngIf="listItemFormGroup.get('description').touched && listItemFormGroup.get('description').hasError('required')">Required</span>
+      </ion-item>
+      <ion-item>
+        <ion-input type="number" placeholder="Precio" formControlName="price"></ion-input>
+        <span *ngIf="listItemFormGroup.get('price').touched && listItemFormGroup.get('price').hasError('required')">Required</span>
+      </ion-item>
+      <ion-item>
+          <ion-button  (click)="takePhoto()" >Tomar foto</ion-button>
+      </ion-item>
+  
+      <ion-button type="button" (click)="crearItem()" [disabled]="listItemFormGroup.invalid">Guardar</ion-button>
+    </form>
 

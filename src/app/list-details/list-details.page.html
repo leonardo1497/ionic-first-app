@@ -8,20 +8,31 @@
 </ion-header>
 
 <ion-content >
-  <ion-card *ngFor="let list-item of lists-items">
+    <!-- Button fixed -->
+  <ion-fab *ngIf="statusList=='0'" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openModal('item')">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-card *ngFor="let item of list_items" (click)="presentActionSheetItem(item.id)">
     <ion-card-header>
 
-      <ion-card-title>{{list-item.name}}</ion-card-title>
-      <ion-card-content>
-          <p>Descripcion</p>
-          {{list-item.description}}
-        </ion-card-content>
+      <ion-card-title>{{item.name}}</ion-card-title>
+      <!--ion-buttons (click)="presentActionSheetItem(item.id)">
+        <ion-icon slot="icon-only" name="more"></ion-icon>
+      </ion-buttons-->
         <ion-card>
   
         <ion-card-content>
-              <ion-img [src]="photo"></ion-img>
+              <ion-img src={{item.image}}></ion-img>
             </ion-card-content>
           </ion-card>
     </ion-card-header>
+    <ion-card-content>
+        <p>Descripcion</p>
+        {{item.description}}
+        <p>Precio:</p>
+        <span style="color:rgb(36, 48, 218)">${{item.price}}</span>
+      </ion-card-content>
   </ion-card>
 </ion-content>

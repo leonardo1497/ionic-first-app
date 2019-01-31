@@ -13,6 +13,7 @@ export class Tab2Page implements OnInit {
   lists: any;
   txtStatus: string;
   cssStatus: string;
+  precioTotal: string;
 
   constructor(
     private modal: ModalController,
@@ -20,9 +21,12 @@ export class Tab2Page implements OnInit {
     public actionSheet: ActionSheetController
   ){}
 
-  async openModal(){
+  async openModal(type){
     const modal = await this.modal.create({
-      component: ModalListComponent
+      component: ModalListComponent,
+      componentProps: {
+        type_list: type
+     }
     });
     modal.onDidDismiss().then(()=>{
       this.refreshPage();
@@ -32,11 +36,12 @@ export class Tab2Page implements OnInit {
     });
     return await modal.present();
   }
-  async openModalMod(idList){
+  async openModalMod(idList,type){
     const modal = await this.modal.create({
       component: ModalModComponent,
       componentProps: {
-        idListMod: idList
+        idListMod: idList,
+        type_list: type
      }
     });
     modal.onDidDismiss().then(()=>{
@@ -49,6 +54,21 @@ export class Tab2Page implements OnInit {
 
   ngOnInit(){
     this.refreshPage();
+  }
+
+  obtenerTotal(id){
+    console.log()
+    this.dbService.sumItem(id).then(response=>{
+      if( response.suma!=null){
+        this.precioTotal = response.suma;
+      }else{
+        this.precioTotal = "0";
+      }  
+      console.log("SUMA ",this.precioTotal);
+    }).catch(e=>{
+      console.log(e);
+    });
+    return this.precioTotal;
   }
 
   refreshPage(){
@@ -88,7 +108,7 @@ export class Tab2Page implements OnInit {
         text: 'Modificar',
         icon: 'create',
         handler: () => {
-          this.openModalMod(idList);
+          this.openModalMod(idList,"list");
         }
       }, {
         text: 'Cancelar',
@@ -97,6 +117,14 @@ export class Tab2Page implements OnInit {
         handler: () => {
           console.log('Cancel clicked');
         }
+        },{
+          text: 'Finalizar',
+          icon: 'checkmark',
+          handler: () => {
+            this.dbService.endList(idList);
+            this.refreshPage();
+          }
+
       }]
     });
     await actionSheet.present();
