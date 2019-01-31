@@ -1,0 +1,14 @@
+<form [formGroup]="listModFormGroup">
+  <ion-item>
+    <ion-input type="text" placeholder="Nombre" formControlName="name"></ion-input>
+    <span *ngIf="listFormGroup.get('name').touched && listFormGroup.get('name').hasError('required')">Required</span>
+  </ion-item>
+  <ion-item>
+    <ion-select multiple="true"  formControlName="proceso">
+      <ion-select-option value="0">En proceso</ion-select-option>
+      <ion-select-option value="1">Finalizado</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-button type="button" (click)="modList()" [disabled]="listModFormGroup.invalid">Modificar</ion-button>
+</form>

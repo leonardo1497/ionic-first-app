@@ -1,0 +1,19 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
+<ion-content padding>
+  <form [formGroup]="formLogin">
+    <ion-item>
+      <ion-input type="text" placeholder="Usuario" formControlName="user"></ion-input>
+    </ion-item> 
+    <ion-item>
+      <ion-input type="password" placeholder="Contraseña" formControlName="password"></ion-input>
+    </ion-item> 
+    
+    <ion-button type="button" (click)="iniciar()" [disabled]="formLogin.invalid">Iniciar sesión</ion-button>
+  </form>
+
+</ion-content>

@@ -1,9 +1,32 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab Two
+      Mis gastos
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+    <!-- Button fixed -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+    <!-- Items card -->
+  <ion-card *ngFor="let item of lists">
+    <ion-card-header>
+      <ion-card-title [routerLink]="['/list-details','item.id']">{{item.name}}</ion-card-title>
+      <span style="position:absolute; right: 15px; color:rgb(36, 48, 218)">{{item?.total}}</span>
+      <ion-buttons (click)="presentActionSheet(item.id)">
+        <ion-icon slot="icon-only" name="more"></ion-icon>
+      </ion-buttons>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Fecha</p>
+      {{item.date}}
+      <span *ngIf="getStatus(item.status)" [ngClass]="cssStatus" >{{txtStatus}}</span>
+    </ion-card-content>
+  </ion-card>
+  
+</ion-content>

@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar >
+    <ion-title>Detalles</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <ion-card *ngFor="let list-item of lists-items">
+    <ion-card-header>
+
+      <ion-card-title>{{list-item.name}}</ion-card-title>
+      <ion-card-content>
+          <p>Descripcion</p>
+          {{list-item.description}}
+        </ion-card-content>
+        <ion-card>
+  
+        <ion-card-content>
+              <ion-img [src]="photo"></ion-img>
+            </ion-card-content>
+          </ion-card>
+    </ion-card-header>
+  </ion-card>
+</ion-content>
