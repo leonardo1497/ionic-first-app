@@ -25,7 +25,7 @@ export class DatabaseService {
   }
 
   getAllList(){
-    let query = "select * from list";
+    let query = "select list.id,list.name,date,status,sum(price) precio from list left join list_items on list.id = list_id group by list.id";
     return this.db.executeSql(query,[]).then(items =>{
       let list = [];
       for (let index = 0; index < items.rows.length; index++) {
@@ -109,17 +109,6 @@ export class DatabaseService {
     });
   }
 
-  sumItem(id){
-    let query = "select sum(price) as suma from list_items where list_id = ?";
-    return this.db.executeSql(query,[id]).then(items=>{
-      let list_items;
-      list_items =items.rows.item(0);
-      return Promise.resolve(list_items);
-    }).catch(e=>{
-      console.log(e);
-      Promise.reject();
-    });
-  }
 
   deleteItemList(idItem){
     let  query ="delete from list_items where id = ?";

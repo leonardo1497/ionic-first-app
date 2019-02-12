@@ -13,14 +13,22 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
     <!-- Items card -->
   <ion-card *ngFor="let item of lists">
     <ion-card-header>
-      <ion-card-title [routerLink]="['/list-details',item.id]">{{item.name}}</ion-card-title>
-      <!--span *ngIf="obtenerTotal(item.id)" style="position:absolute; right: 15px; color:rgb(36, 48, 218) ">${{precioTotal}}</span-->
-      <ion-buttons *ngIf="id.status==0"   (click)="presentActionSheet(item.id)">
-        <ion-icon slot="icon-only" name="more"></ion-icon>
-      </ion-buttons>
+        <ion-buttons style="position:absolute; right: 15px; " *ngIf="item.status==0"   (click)="presentActionSheet(item.id)">
+          <ion-icon slot="icon-only" name="more"></ion-icon>
+        </ion-buttons>
+      <ion-card-title [routerLink]="['/list-details',item.id]">{{item.name}}  </ion-card-title>
+      <span style="position:absolute; right: 15px; color:rgb(36, 48, 218) ">${{item.precio}}</span>
     </ion-card-header>
     <ion-card-content>
       <p>Fecha</p>

@@ -56,20 +56,7 @@ export class Tab2Page implements OnInit {
     this.refreshPage();
   }
 
-  obtenerTotal(id){
-    console.log()
-    this.dbService.sumItem(id).then(response=>{
-      if( response.suma!=null){
-        this.precioTotal = response.suma;
-      }else{
-        this.precioTotal = "0";
-      }  
-      console.log("SUMA ",this.precioTotal);
-    }).catch(e=>{
-      console.log(e);
-    });
-    return this.precioTotal;
-  }
+
 
   refreshPage(){
     this.dbService.getAllList().then(response =>{
@@ -79,6 +66,14 @@ export class Tab2Page implements OnInit {
       console.log(e);
     })
 
+  }
+
+  doRefresh(event) {
+    this.refreshPage();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 1000);
   }
 
   getStatus(id){
